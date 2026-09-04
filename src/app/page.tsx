@@ -58,8 +58,9 @@ function Wordmark({ footer = false }: { footer?: boolean }) {
 }
 
 export default function Home() {
-  const studioAppUrl =
+  const studioAppOrigin =
     process.env.NEXT_PUBLIC_STUDIO_APP_URL ?? "https://app.studio14.example";
+  const studioCatalogueUrl = `${studioAppOrigin.replace(/\/+$/, "")}/studio`;
 
   return (
     <>
@@ -77,7 +78,7 @@ export default function Home() {
           <a href="#how">How it works</a>
           <a href="#pricing">Pricing</a>
         </nav>
-        <a className="header-cta" href={studioAppUrl}>
+        <a className="header-cta" href={studioCatalogueUrl}>
           Open the studio <span aria-hidden="true">↗</span>
         </a>
       </header>
@@ -101,7 +102,7 @@ export default function Home() {
               every frame.
             </p>
             <div className="hero-actions">
-              <a className="button button-flash" href={studioAppUrl}>
+              <a className="button button-flash" href={studioCatalogueUrl}>
                 Find your shoot <span aria-hidden="true">↗</span>
               </a>
               <a className="quiet-link" href="#shoots">
@@ -176,7 +177,7 @@ export default function Home() {
             </div>
             <div className="collections-side" data-reveal>
               <p>Polished. Playful. Powerful. There&apos;s a shoot for every version of you.</p>
-              <a className="arrow-link" href={studioAppUrl}>
+              <a className="arrow-link" href={studioCatalogueUrl}>
                 Explore all shoots <span aria-hidden="true">↗</span>
               </a>
             </div>
@@ -186,7 +187,7 @@ export default function Home() {
             {collectionCards.map((card, index) => (
               <a
                 className={`collection-card ${card.className}`}
-                href={studioAppUrl}
+                href={studioCatalogueUrl}
                 key={card.title}
                 data-reveal
                 aria-label={`Explore ${card.title} studio shoot`}
@@ -302,7 +303,7 @@ export default function Home() {
                 <li>No account needed to begin</li>
                 <li>Sign in when you choose a favourite</li>
               </ul>
-              <a className="button button-dark" href={studioAppUrl}>Try your first shoot <span aria-hidden="true">↗</span></a>
+              <a className="button button-dark" href={studioCatalogueUrl}>Try your first shoot <span aria-hidden="true">↗</span></a>
             </article>
 
             <article className="price-card price-card-monthly" data-reveal>
@@ -315,7 +316,7 @@ export default function Home() {
                 <li>Purchased credits never expire</li>
                 <li>Cancel future renewals any time</li>
               </ul>
-              <a className="button button-paper" href={studioAppUrl}>Enter the studio <span aria-hidden="true">↗</span></a>
+              <a className="button button-paper" href={studioCatalogueUrl}>Enter the studio <span aria-hidden="true">↗</span></a>
             </article>
           </div>
         </section>
@@ -340,7 +341,7 @@ export default function Home() {
           <div className="final-cta-noise" aria-hidden="true" />
           <p className="eyebrow eyebrow-light" data-reveal>Lights on. Camera ready.</p>
           <h2 data-reveal>Your studio is ready.</h2>
-          <a className="button button-flash" href={studioAppUrl} data-reveal>
+          <a className="button button-flash" href={studioCatalogueUrl} data-reveal>
             Find your shoot <span aria-hidden="true">↗</span>
           </a>
           <div className="final-stamp" aria-hidden="true">S14 <span>✦</span> 3 frames</div>
