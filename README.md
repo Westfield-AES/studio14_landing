@@ -24,9 +24,12 @@ pnpm check
 pnpm exec playwright install chromium
 pnpm test:e2e
 pnpm test:a11y
+pnpm test:motion
 ```
 
 `pnpm check` also verifies exported links, the explicit compressed-JavaScript/CSS and total-artifact performance budgets, the static-host security-header contract, and common secret formats. `pnpm build` writes the deployable static site to `out/`.
+
+`MOTION_LAB.md` records the approved motion patterns, reduced-motion contract and executable interaction-performance budget. Studio calls to action derive the `/studio` catalogue route from `NEXT_PUBLIC_STUDIO_APP_URL`.
 
 ## Deployment contract
 
