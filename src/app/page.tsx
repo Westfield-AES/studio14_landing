@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { ArrowIcon } from "../components/arrow-icon";
 import { MotionController } from "../components/motion-controller";
 
 const collectionCards = [
@@ -79,7 +80,7 @@ export default function Home() {
           <a href="#pricing">Pricing</a>
         </nav>
         <a className="header-cta" href={studioCatalogueUrl}>
-          Open the studio <span aria-hidden="true">↗</span>
+          Open the studio <ArrowIcon />
         </a>
       </header>
 
@@ -103,10 +104,10 @@ export default function Home() {
             </p>
             <div className="hero-actions">
               <a className="button button-flash" href={studioCatalogueUrl}>
-                Find your shoot <span aria-hidden="true">↗</span>
+                Find your shoot <ArrowIcon />
               </a>
               <a className="quiet-link" href="#shoots">
-                See what&apos;s waiting <span aria-hidden="true">↓</span>
+                See what&apos;s waiting <ArrowIcon direction="down" />
               </a>
             </div>
             <p className="hero-note">
@@ -178,7 +179,7 @@ export default function Home() {
             <div className="collections-side" data-reveal>
               <p>Polished. Playful. Powerful. There&apos;s a shoot for every version of you.</p>
               <a className="arrow-link" href={studioCatalogueUrl}>
-                Explore all shoots <span aria-hidden="true">↗</span>
+                Explore all shoots <ArrowIcon />
               </a>
             </div>
           </div>
@@ -203,7 +204,7 @@ export default function Home() {
                     unoptimized
                   />
                   <span className="card-count">0{index + 1}</span>
-                  <span className="card-arrow" aria-hidden="true">↗</span>
+                  <span className="card-arrow" aria-hidden="true"><ArrowIcon /></span>
                 </div>
                 <div className="collection-meta">
                   <h3>{card.title}</h3>
@@ -303,7 +304,7 @@ export default function Home() {
                 <li>No account needed to begin</li>
                 <li>Sign in when you choose a favourite</li>
               </ul>
-              <a className="button button-dark" href={studioCatalogueUrl}>Try your first shoot <span aria-hidden="true">↗</span></a>
+              <a className="button button-dark" href={studioCatalogueUrl}>Try your first shoot <ArrowIcon /></a>
             </article>
 
             <article className="price-card price-card-monthly" data-reveal>
@@ -316,7 +317,7 @@ export default function Home() {
                 <li>Purchased credits never expire</li>
                 <li>Cancel future renewals any time</li>
               </ul>
-              <a className="button button-paper" href={studioCatalogueUrl}>Enter the studio <span aria-hidden="true">↗</span></a>
+              <a className="button button-paper" href={studioCatalogueUrl}>Enter the studio <ArrowIcon /></a>
             </article>
           </div>
         </section>
@@ -342,7 +343,7 @@ export default function Home() {
           <p className="eyebrow eyebrow-light" data-reveal>Lights on. Camera ready.</p>
           <h2 data-reveal>Your studio is ready.</h2>
           <a className="button button-flash" href={studioCatalogueUrl} data-reveal>
-            Find your shoot <span aria-hidden="true">↗</span>
+            Find your shoot <ArrowIcon />
           </a>
           <div className="final-stamp" aria-hidden="true">S14 <span>✦</span> 3 frames</div>
         </section>

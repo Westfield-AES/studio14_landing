@@ -364,16 +364,23 @@ h2 {
   padding-block: 0.65rem;
 }
 
-.quiet-link span,
-.arrow-link span {
+.arrow-icon {
+  display: block;
+  flex-shrink: 0;
+  height: 1.125rem;
+  width: 1.125rem;
+}
+
+.quiet-link .arrow-icon,
+.arrow-link .arrow-icon {
   transition: transform 180ms ease;
 }
 
-.quiet-link:hover span {
+.quiet-link:hover .arrow-icon {
   transform: translateY(4px);
 }
 
-.arrow-link:hover span {
+.arrow-link:hover .arrow-icon {
   transform: translate(3px, -3px);
 }
 
@@ -1744,23 +1751,36 @@ footer > div:first-child > p {
   }
 }
 
+/* Phone layouts use a shorter editorial sequence; tablet and desktop stay unchanged. */
 @media (max-width: 620px) {
   .site-header {
     padding: 1rem 1.1rem;
   }
 
+  .brand-link,
+  footer a[aria-label="Studio14 home"] {
+    align-items: center;
+    display: inline-flex;
+    min-height: 2.75rem;
+  }
+
   .header-cta {
     font-size: 0.6rem;
-    min-height: 2.65rem;
+    min-height: 2.75rem;
   }
 
   .hero {
-    padding: 7.5rem 1.1rem 3.5rem;
+    padding: 7rem 1.1rem 2.5rem;
+  }
+
+  .hero-copy {
+    padding-bottom: 0;
   }
 
   .hero h1 {
     font-size: clamp(4rem, 19vw, 6.4rem);
-    line-height: 0.79;
+    line-height: 0.83;
+    margin-bottom: 1.5rem;
   }
 
   .hero h1 > span:nth-child(2) {
@@ -1769,105 +1789,164 @@ footer > div:first-child > p {
 
   .hero-lede {
     font-size: 0.95rem;
+    margin-bottom: 1.5rem;
   }
 
   .hero-actions {
     align-items: flex-start;
-    flex-direction: column;
-    gap: 0.75rem;
+  }
+
+  /* Keep one primary action and remove repeated decorative storytelling. */
+  .hero-actions .quiet-link,
+  .hero-note,
+  .frame-orbit,
+  .hero-frame > span,
+  .marquee,
+  .section-index,
+  .intro-copy p:last-child,
+  .collections-side > p,
+  .shoot-story,
+  .step-icon,
+  .privacy-art,
+  .popular-label,
+  .final-stamp,
+  .final-cta-noise,
+  .final-cta::before,
+  .final-cta::after {
+    display: none;
   }
 
   .hero-stage {
-    height: 490px;
-    margin-top: 2rem;
+    aspect-ratio: 1.2;
+    height: auto;
+    margin-top: 2.5rem;
   }
 
-  .hero-frame {
-    border-width: 3px;
-    width: 39%;
+  .hero-stage .hero-frame {
+    border-width: 2px;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
+    width: 36%;
   }
 
-  .hero-frame-one { left: -4%; top: 19%; }
-  .hero-frame-two { left: 30.5%; top: 5%; }
-  .hero-frame-three { left: 65%; top: 20%; }
-
-  .frame-orbit {
-    height: 21rem;
-    left: 5%;
-    top: 10%;
-    width: 21rem;
-  }
+  .hero-frame-one { left: 0; }
+  .hero-frame-two { left: 32%; }
+  .hero-frame-three { left: 64%; }
 
   .stage-caption {
     font-size: 0.75rem;
-  }
-
-  .marquee-track {
-    gap: 1.4rem;
+    margin: 0;
+    right: 0;
+    text-align: center;
+    width: 100%;
   }
 
   .section-shell {
     padding-inline: 1.1rem;
   }
 
+  .intro,
+  .collections,
+  .process,
+  .pricing,
+  .faq {
+    padding-block: 3.5rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 1rem;
+  }
+
   h2,
   .intro-statement h2,
   .collections-heading h2,
-  .shoot-story h2,
   .process-heading h2,
   .privacy-copy h2,
   .pricing-heading h2,
   .faq-heading h2 {
-    font-size: clamp(3rem, 15vw, 5rem);
+    font-size: clamp(2.6rem, 12vw, 3.5rem);
+    line-height: 0.98;
+    max-width: none;
+  }
+
+  .intro {
+    gap: 1.5rem;
+  }
+
+  .intro-copy p {
+    margin-bottom: 0;
+  }
+
+  .collections-heading {
+    gap: 1.25rem;
+    margin-bottom: 2rem;
   }
 
   .collection-grid {
+    gap: 2rem;
     grid-template-columns: 1fr;
   }
 
   .collection-card:nth-child(2),
   .collection-card:nth-child(3) {
     grid-column: auto;
-    margin: 2rem 0 0;
+    margin: 0;
     width: auto;
   }
 
+  /* Anchor at the top so the wider mobile crop preserves faces and hair. */
   .collection-image-wrap {
-    aspect-ratio: 0.84;
+    aspect-ratio: 4 / 5;
   }
 
-  .shoot-story .section-index,
-  .privacy .section-index,
-  .faq-heading .section-index {
-    margin-bottom: 2.5rem;
+  .collection-image-wrap img {
+    object-position: center top;
   }
 
-  .reveal-triptych {
-    height: 125vw;
-    margin-left: -5%;
-    padding-inline: 0;
-    width: 110%;
+  /* Show exactly the first portrait panel, without a sliver of the next frame. */
+  .collection-card-signature img {
+    max-width: none;
+    object-position: left top;
+    width: 300%;
   }
 
-  .reveal-triptych::before {
-    height: 20rem;
-    top: calc(50% - 10rem);
-    width: 20rem;
+  .collection-card:hover img {
+    filter: none;
+    transform: none;
+  }
+
+  .collection-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-block: 0.85rem 1rem;
+  }
+
+  .collection-meta p {
+    text-align: left;
+  }
+
+  .process-heading {
+    gap: 0;
+  }
+
+  .process-heading h2 {
+    max-width: 14ch;
+  }
+
+  .process-list {
+    margin-top: 2rem;
   }
 
   .process-list li,
   .process-list li:first-child {
-    gap: 1.2rem;
-    grid-template-columns: auto 1fr;
+    gap: 0.65rem 1rem;
+    grid-template-columns: 1.5rem 1fr;
+    padding-block: 1.5rem;
   }
 
   .step-number {
-    grid-row: auto;
-  }
-
-  .step-icon {
-    grid-column: 1 / -1;
-    grid-row: auto;
+    grid-row: 1;
+    padding-top: 0.4rem;
   }
 
   .process-list h3,
@@ -1877,30 +1956,33 @@ footer > div:first-child > p {
 
   .process-list h3 {
     align-self: start;
+    font-size: 1.7rem;
     grid-row: 1;
   }
 
-  .privacy-art {
-    min-height: 28rem;
-  }
-
-  .privacy-ring-one {
-    height: 22rem;
-    width: 22rem;
-  }
-
-  .privacy-ring-two {
-    height: 15rem;
-    width: 15rem;
-  }
-
-  .privacy-core {
-    height: 8rem;
-    width: 8rem;
+  .privacy {
+    min-height: 0;
   }
 
   .privacy-copy {
-    padding-inline: 1.1rem;
+    padding: 3.5rem 1.1rem;
+  }
+
+  .privacy-copy h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .privacy-copy ul {
+    margin-top: 1.5rem;
+  }
+
+  .pricing-heading {
+    gap: 0;
+    margin-bottom: 2rem;
+  }
+
+  .pricing-heading h2 {
+    margin-bottom: 1.25rem;
   }
 
   .price-grid {
@@ -1908,7 +1990,11 @@ footer > div:first-child > p {
   }
 
   .price-card {
-    min-height: 31rem;
+    min-height: 0;
+  }
+
+  .price-value {
+    margin-block: 1rem;
   }
 
   .price-card .button {
@@ -1916,7 +2002,7 @@ footer > div:first-child > p {
   }
 
   .faq {
-    gap: 4rem;
+    gap: 2rem;
   }
 
   .faq-list summary {
@@ -1930,20 +2016,35 @@ footer > div:first-child > p {
   }
 
   .final-cta {
-    min-height: 680px;
+    justify-content: center;
+    min-height: 0;
+    padding: 4rem 1.1rem;
   }
 
   .final-cta h2 {
-    font-size: clamp(4rem, 20vw, 7rem);
+    font-size: clamp(3.5rem, 17vw, 5rem);
+    margin: 0.5rem 0 2rem;
   }
 
-  .final-stamp {
-    bottom: 1.5rem;
-    right: 1.5rem;
+  .final-cta .button {
+    margin-bottom: 0;
   }
 
   footer {
+    gap: 1.5rem;
     grid-template-columns: 1fr;
+    padding: 2.5rem 1.1rem;
+  }
+
+  .footer-links {
+    gap: 0.25rem 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-links a {
+    align-items: center;
+    display: flex;
+    min-height: 2.75rem;
   }
 
   .footer-meta {
@@ -1965,6 +2066,7 @@ footer > div:first-child > p {
     transition-duration: 0.01ms !important;
   }
 
+  .hero-frame { animation: none; will-change: auto; }
   .hero-frame-one { transform: rotate(-5deg); }
   .hero-frame-two { transform: rotate(1deg); }
   .hero-frame-three { transform: rotate(5deg); }

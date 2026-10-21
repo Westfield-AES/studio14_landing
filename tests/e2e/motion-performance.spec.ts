@@ -33,40 +33,52 @@ test("reduced motion keeps the full story immediately readable", async ({ page }
   expect(maximumMotionSeconds).toBeLessThanOrEqual(MAX_REDUCED_MOTION_ANIMATION_SECONDS);
 });
 
-test("approved scroll motion stays responsive and does not hijack scrolling", async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/");
-  await expect(page.locator("html")).toHaveAttribute("data-motion", "ready");
+for (const width of [1440, 430]) {
+  test(`approved scroll motion stays responsive at ${width}px and does not hijack scrolling`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 932 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto("/");
+    await expect(page.locator("html")).toHaveAttribute("data-motion", "ready");
 
-  await page.evaluate(() => {
-    const longTasks: number[] = [];
-    const observer = new PerformanceObserver((list) => {
-      longTasks.push(...list.getEntries().map((entry) => entry.duration));
+    const frames = page.locator(".hero-frame");
+    await frames.evaluateAll(async (items) => {
+      await Promise.all(items.flatMap((item) => item.getAnimations().map((animation) => animation.finished)));
     });
-    observer.observe({ type: "longtask", buffered: true });
-    window.__studio14MotionProbe = { longTasks, observer };
+    const initialTransforms = await frames.evaluateAll((items) => items.map((item) => getComputedStyle(item).transform));
+    await page.evaluate(() => window.scrollTo(0, 200));
+    await expect.poll(() => frames.evaluateAll((items) => items.map((item) => getComputedStyle(item).transform)))
+      .not.toEqual(initialTransforms);
+
+    await page.evaluate(() => {
+      const longTasks: number[] = [];
+      const observer = new PerformanceObserver((list) => {
+        longTasks.push(...list.getEntries().map((entry) => entry.duration));
+      });
+      observer.observe({ type: "longtask", buffered: true });
+      window.__studio14MotionProbe = { longTasks, observer };
+    });
+
+    const targets = page.locator("[data-reveal]:visible");
+    for (let index = 0; index < await targets.count(); index += 1) {
+      const target = targets.nth(index);
+      await target.evaluate((element) => element.scrollIntoView({ block: "center" }));
+      await expect(target).toHaveClass(/is-visible/);
+    }
+
+    const metrics = await page.evaluate(() => {
+      const probe = window.__studio14MotionProbe;
+      probe?.observer.disconnect();
+      delete window.__studio14MotionProbe;
+      const revealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+      return {
+        finalScrollY: window.scrollY,
+        maximumLongTask: Math.max(0, ...(probe?.longTasks ?? [])),
+        unrevealed: revealTargets.filter((target) => target.getClientRects().length > 0 && !target.classList.contains("is-visible")).length,
+      };
+    });
+
+    expect(metrics.finalScrollY).toBeGreaterThan(0);
+    expect(metrics.unrevealed).toBe(0);
+    expect(metrics.maximumLongTask).toBeLessThan(MAX_SCROLL_LONG_TASK_MS);
   });
-
-  const targets = page.locator("[data-reveal]");
-  for (let index = 0; index < await targets.count(); index += 1) {
-    const target = targets.nth(index);
-    await target.evaluate((element) => element.scrollIntoView({ block: "center" }));
-    await expect(target).toHaveClass(/is-visible/);
-  }
-
-  const metrics = await page.evaluate(() => {
-    const probe = window.__studio14MotionProbe;
-    probe?.observer.disconnect();
-    delete window.__studio14MotionProbe;
-    const revealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
-    return {
-      finalScrollY: window.scrollY,
-      maximumLongTask: Math.max(0, ...(probe?.longTasks ?? [])),
-      unrevealed: revealTargets.filter((target) => !target.classList.contains("is-visible")).length,
-    };
-  });
-
-  expect(metrics.finalScrollY).toBeGreaterThan(0);
-  expect(metrics.unrevealed).toBe(0);
-  expect(metrics.maximumLongTask).toBeLessThan(MAX_SCROLL_LONG_TASK_MS);
-});
+}

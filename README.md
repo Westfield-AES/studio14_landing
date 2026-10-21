@@ -27,6 +27,10 @@ pnpm test:a11y
 pnpm test:motion
 ```
 
+When port 3000 is used by another project, set `PLAYWRIGHT_PORT` to the landing preview port for browser checks, for example `PLAYWRIGHT_PORT=3001 pnpm test:e2e` (the same override applies to `test:a11y` and `test:motion`).
+
+If the environment prevents Turbopack from binding its local compiler worker port, use `pnpm build --webpack` for the static export, then run the `check:links`, `check:performance`, `check:headers`, and `check:secrets` scripts. Restart any running development preview after switching build compilers before running browser checks.
+
 `pnpm check` also verifies exported links, the explicit compressed-JavaScript/CSS and total-artifact performance budgets, the static-host security-header contract, and common secret formats. `pnpm build` writes the deployable static site to `out/`.
 
 `MOTION_LAB.md` records the approved motion patterns, reduced-motion contract and executable interaction-performance budget. Studio calls to action derive the `/studio` catalogue route from `NEXT_PUBLIC_STUDIO_APP_URL`.

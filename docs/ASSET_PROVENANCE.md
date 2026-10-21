@@ -1,7 +1,7 @@
 # Studio14 landing asset provenance
 
 Status: development-preview register  
-Last updated: 15 August 2026
+Last updated: 21 October 2026
 
 The three assets below are original synthetic concept images created for this Studio14 landing-page redesign. No customer photograph, scraped moodboard image, external photographer work, logo or supplied likeness was used as an input. The depicted people are synthetic adults and are not presented as customers or endorsements.
 
@@ -12,6 +12,16 @@ These records cover the development preview. Product/legal owners must include t
 | `public/images/studio14-signature-triptych.webp` | `ed234b245a7026b3fd2c6df5797c82350596e2712c99b8d2f3d3b458cc0fa0fa` | OpenAI built-in image generation, commissioned in this repository on 2026-08-15; no reference image | One synthetic adult, repeated across three generated frames | Studio14 landing development preview; responsive crops, colour-preserving compression and layout treatment allowed | No attribution requested; review again before public launch | Development preview approved by product request; production legal/rights review open |
 | `public/images/studio14-after-hours.webp` | `72ad305bf4007a3002731fc5581a5e33ff60598c7c112c8a675138eecf028bbe` | OpenAI built-in image generation, commissioned in this repository on 2026-08-15; no reference image | One synthetic adult | Studio14 landing development preview; responsive crops, colour-preserving compression and layout treatment allowed | No attribution requested; review again before public launch | Development preview approved by product request; production legal/rights review open |
 | `public/images/studio14-in-full-colour.webp` | `77dd7bfcd9e2386942ff26e2581c54dd04eadf88fd8516acec6512879fe36f28` | OpenAI built-in image generation, commissioned in this repository on 2026-08-15; no reference image | One synthetic adult | Studio14 landing development preview; responsive crops, colour-preserving compression and layout treatment allowed | No attribution requested; review again before public launch | Development preview approved by product request; production legal/rights review open |
+
+## Navigation icons
+
+The inline navigation arrows in `src/components/arrow-icon.tsx` are original SVG path geometry authored in this repository on 21 October 2026. They use no third-party icon library, font, image or reference asset and are maintained as project source code.
+
+## Browser and Apple icons
+
+`src/app/icon.svg`, `src/app/favicon.ico` (16, 32 and 48px) and `src/app/apple-icon.png` (180px) derive from the existing, user-supplied `public/Studio14-logo-asset-pack/studio14-symbol-colour.svg`. Its original paths and colours are preserved, centred on a square dark Studio14 background (`#0D061F`). The SVG is rasterised with the already-installed Sharp library for PNG and ICO variants; no new font, artwork, external source or runtime dependency is introduced. Next.js file-based metadata supplies the icon links in the static export.
+
+The owner's request authorises use of the supplied Studio14 brand asset for this site's browser and bookmark icons. The source/reconstruction notes and underlying-rights qualifications in `public/Studio14-logo-asset-pack/README.txt` continue to apply; this entry does not claim an independent rights clearance or designer release.
 
 ## Generation prompts
 
